@@ -2,7 +2,7 @@ from flask import Flask, jsonify,request
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from flask_cors import CORS
-
+#HERE MONGO CLOUD ATLAS DB IS USED
 uri = "mongodb+srv://usernameandpassword@dblink.mongodb.net/?retryWrites=true&w=majority&appName=clustername"
 # USERNAME AND PASSWORD REMOVED FOR HACKATHON PURPOSES
 client = MongoClient(uri, server_api=ServerApi('1'))
