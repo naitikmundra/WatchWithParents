@@ -1,22 +1,20 @@
+//this is the main js extension's code that is injected onto the page
 async function searchByUrl() {
 
-    // Get the current page URL
     const pageUrl = window.location.href;
 
     try {
-        // Path to the config.json file hosted on your static website
+        // fetch server url from my website :) so that it is easily changable
         const configUrl = 'https://naitikmundra.xyz/config.json';
 
-        // Fetch the config file and store the URL in a variable
         const configResponse = await fetch(configUrl);
         if (!configResponse.ok) {
             throw new Error(`Failed to fetch config: ${configResponse.status}`);
         }
         const config = await configResponse.json();
-        const apiUrl = config.apiUrl; // Store the fetched URL
+        const apiUrl = config.apiUrl; // Page's url
         console.log("Fetched API URL:", apiUrl);
         
-        // Make a POST request to the fetched API URL
         const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
@@ -32,7 +30,7 @@ async function searchByUrl() {
         const data = await response.json();
         
         if (data && data.durations) {
-            const durationStr = data.durations; // Fetching 'duration' field from server
+            const durationStr = data.durations; 
             const skipRanges = parseDurationToRanges(durationStr);
 
             // Apply skipping logic to all video elements
@@ -62,7 +60,7 @@ async function searchByUrl() {
     }
 }
 
-// Function to parse duration string into an array of {start, end} ranges
+
 function parseDurationToRanges(durationStr) {
     return durationStr.split(',').map(range => {
         const [start, end] = range.split('-').map(Number);
@@ -70,16 +68,14 @@ function parseDurationToRanges(durationStr) {
     });
 }
 
-// Function to check if the current time is within any skip range
 function shouldSkip(skipRanges, currentTime) {
-    const timeBuffer = 0.5; // Buffer to account for the timeupdate delay
+    const timeBuffer = 0.5; 
     for (const range of skipRanges) {
         if (currentTime + timeBuffer >= range.start && currentTime <= range.end) {
-            return range.end; // Return the end time of the range to skip to
+            return range.end; // HERE LIES THE END OF THE RANGE LOL :))))
         }
     }
-    return null; // No skipping needed
+    return null; 
 }
 
-// Example usage
 searchByUrl();
