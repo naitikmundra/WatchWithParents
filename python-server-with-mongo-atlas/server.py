@@ -25,7 +25,10 @@ def search_by_url():
         return jsonify(document) 
     else:
         return jsonify({"error": "No document found for the given URL"}), 404
-
+@app.route('/entry', methods=['POST'])
+def entry():
+    pass
+    #ADDS data to Mongo Cloud DB code rmvd for safety purposes 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
